@@ -1,0 +1,429 @@
+:: StoryTitle
+Asset Integration
+
+
+:: StoryData
+{
+  "ifid": "2189884F-DF07-42CC-B40C-90AA1D40B49E",
+  "format": "Harlowe",
+  "format-version": "3.3.9",
+  "start": "Start",
+  "tag-colors": {
+    "footer": "purple",
+    "header": "blue",
+    "foot-menu": "blue",
+    "Typewriter": "red"
+  },
+  "zoom": 1
+}
+
+
+:: Credits {"position":"850,175","size":"100,100"}
+
+
+
+:: Ending 1 {"position":"850,725","size":"100,100"}
+Look at that. You ended up helping anyways. Thanks for testing out my code. 
+
+You got the first ending I made btw. I still gotta do css.
+
+
+:: Footer [footer] {"position":"250,900","size":"100,100"}
+<tw-footer>(display:"Game Title")(display:"Navigation")(display:"Menu")</tw-footer><!--
+	If you don't want the players to have a undo/redo option, just remove the middle (display:)
+	The code below is so the Footer is actually separate from the tw-passage element. DO NOT REMOVE THIS SCRIPT!!!!!!
+--><script>$('tw-footer').insertAfter('tw-passage');</script>
+
+
+:: Game Title [foot-menu] {"position":"350,900","size":"100,100"}
+<div id="title">//Midnight Diner-Test Code//</div>
+
+
+:: I mean no {"position":"700,600","size":"100,100"}
+Ugh. Rude. 
+
+<html> 
+<body>
+[[<img src="C:\Users\maria\OneDrive\Pictures\Moodboard 2026 (1).png"
+width="700" height="500">->it worked]]
+</body>
+</html>
+
+
+:: I'm ready {"position":"525,600","size":"100,100"}
+Oh wow. You are ready. Well..awesome! We did do some text transitions already. Plus we have the menu here such as restart. Try using that.
+
+
+:: Intro\  {"position":"550,200","size":"100,100"}
+Hello, this is a test run for my sip idea. Do you need
+[[more?]]
+
+
+:: Menu [foot-menu] {"position":"550,900","size":"100,100"}
+<div id="menu">(link-repeat:"Restart")[(restart:)]</div><!--
+
+This is just an example, you could even create your own menu and add settings/saves and so on.
+Even have a <nav> menu, with multiple options.
+
+-->
+
+
+:: NavCheck [header] {"position":"250,800","size":"100,100"}
+{(set: _past to 0)
+(set: _future to 0)
+<script>
+    _past = harlowe.State.pastLength;
+    _future = harlowe.State.futureLength;
+</script>
+<!-- 
+	The Code above is check if the Navigation Forward arrow should be a link or not. 
+	If you are not using the Navigation passage, you can also delete this passage.
+-->
+}
+
+
+:: Navigation [foot-menu] {"position":"450,900","size":"100,100"}
+<div>&emsp;(if: (history:)'s length is 0)[⮘](else:)[(icon-undo:"⮘")]&emsp;|&emsp;(if: _future > 0)[(icon-redo:"⮚")](else:)[⮚]&emsp;</div>
+
+
+:: Start {"position":"525,50","size":"100,100"}
+<h1 style="font-size: 20px; ">
+#Midnight Diner<br> <img src= "https://github.com/MDiaz-05/MidnightDinergame/blob/main/Sip_Poster_Draft-Diaz-removebg-preview.png?raw=true">
+</h1>
+<br> <center> <p style="font-size: 25px; "> A twine game brought to you by Oscar Diaz
+</center>
+<center>
+<p style="font-size: 35px; ">
+[[Start->Intro ]]
+[[Credits]]
+</p>
+</center>
+
+
+<!-- If you want to add settions or save slots, check out this page https://manonamora.itch.io/twine-harlowe-templates for the relevant template-->
+
+
+:: it worked {"position":"700,725","size":"100,100"}
+Holy crap. It did it?!
+
+[[Next.->Ending 1]]
+
+
+:: more? {"position":"550,325","size":"100,100"}
+Glad to hear it! This is the prototype for the basic code and strcutre. While my other ones have the actual writing. Here I'll plug in sample text codes and their functions. Such as the example below. This is code where players can make choices mid-passage without having to move forward. Such as making a more intenral choice rather than external. 
+
+"This blows. It’s two in the morning right now and I must get to the (live: 1s)[(stop:) |Answer>[airport(live: 1.5s)[(stop:)(if: $Airport is true)[](else:)[(replace: "airport")[the cafe(live: 1.5s)[(stop:)(if: $Cafe is true)[](else:)[(replace: "the cafe")[the transit center(live: 1.5s)[(stop:)(if: $Transit is true)[](else:)[(rerun: ?Answer)]]]]]]]]]] by seven the latest." 
+
+{
+(Click-replace: "airport")[airport (set: $Airport to true)] (Click-replace: "the cafe")[the cafe (set: $Cafe to true)] (Click-replace: "the transit center")[the transit center (set: $Transit to true)]
+} 
+
+
+
+[[what do you mean?]]
+
+
+:: no {"position":"700,475","size":"100,100"}
+Oh.. um... well are you sure? I really need to start coding dude. Like... 
+
+[[Actually I'm ready now->I'm ready]]
+[[Um..I dunno->what do you mean?]] 
+[[I mean no]]
+
+
+:: what do you mean? {"position":"550,450","size":"100,100"}
+Midnight diner is going to take a lot of work but  repeat a lot off those tasks. Having this test run helps me figure  out what works and doesn't work on a smaller scale. Espically for coding elements or text elements. If I were to do all of that plus add my current writing it would make it harder to find errors. As I need to find coding errors and writing ones such as grammar. 
+
+(text-style:"shudder")[//Are you ready? // ]
+
+P.s. the way style above is what I'll use for certain sound effects like crashes and thuds. While the ones below are for effects in moments of calmness or for more surreal lines. I may even use to it as hints when a passage has a clickable option
+
+[(text-style:"italic","sway")[[Yes->I'm ready]]]
+[(text-style:"italic","sway") [[no]]]
+
+
+:: StoryScript [script]
+window.harlowe = {
+    'State': State
+}
+
+:: StoryStylesheet [stylesheet]
+/*~ ~ ~ ~ ~ ~ ~  TABLE OF CONTENTS ~ ~ ~ ~ ~ ~ ~ 
+      I - Import Font
+     II - Root
+    III - Interface
+     IV - Macros
+      V - Text Styling
+     VI - Special Pages
+    VII - Mobile sizing
+*/
+/***************************
+    IMPORT FONTS
+***************************/
+
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Antic+Slab&family=Caveat:wght@400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Antic+Slab&family=Caveat:wght@400..700&family=Quicksand:wght@300..700&display=swap');
+
+
+
+/***************************
+    ROOT
+***************************/
+:root {
+    --bg: url("https://github.com/MDiaz-05/MidnightDinergame/blob/main/Midnight%20Diner%20--bg%20(5).png?raw=true") ;
+    --text: #212121;
+    --shadow: hsl(243, 25%, 25%);
+    --icon: #555353;
+    --grey: gray;
+    --light: #d8d4d4;
+}
+
+/***************************
+    INTERFACE
+***************************/
+html {
+    font: 30px/1  "Quicksand", sans-serif;
+}
+body {
+   background-image: var(--bg);
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  
+    color: var(--text);
+    height: 97%;
+    font-size: 18px;
+}
+
+    /* Remove/Re-set Hard-Coded elements */
+tw-sidebar {
+    display: none;
+}
+tw-story {
+    font: unset;
+    background-color: unset;
+    color: unset;
+}
+tw-expression[name*="input"] {
+    border: unset !important;
+}
+tw-expression[name*="input"] input:focus, tw-expression[name*="input"] textarea:focus {
+    outline: none;
+}
+tw-story textarea {
+    resize: both;
+}
+
+    /* New Interface */
+tw-story {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: var(--bg2);
+    color: var(--text);
+    box-shadow: 0 4px 8px var(--shadow);
+    width: calc(100vw - 14em);
+    max-width: 40em;
+    height: 100vh;
+    min-height: unset;
+    max-height: calc(100vh - 6em);
+    line-height: 150%;
+    margin: 1em auto;
+    padding: 2em 4em;
+    box-sizing: inherit;
+}
+
+tw-passage {
+    overflow: auto;
+    height: calc(100vh - 9em);
+    padding: 0 1em 0 0;
+    line-height: 1.75;
+}
+
+tw-footer {
+    border-top: 1px solid var(--text);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0.5em 0 0;
+}
+#title {
+    /* Currently empty, but you could do whatever you want */
+}
+tw-icon {
+    margin: unset;
+    font-size:18px;
+}
+tw-icon[alt] {
+    opacity: 1;
+    color: var(--icon);
+}
+#menu {
+    /* Same as with #title, but you can style it if you want */
+}
+tw-dialog {
+    background: var(--bg2);
+    color: var(--text);
+    border: 1px solid #444;
+}
+
+/***************************
+    MACROS
+***************************/
+    /* Links */
+    /*Note: #menu tw-link is for the restart link, but you can separate it if you want it styled differently.*/
+tw-passage tw-link, tw-passage tw-link:visited, #menu tw-link, tw-dialog-links tw-link {
+    color: var(--text);
+    font-weight: bold;
+}
+tw-passage tw-link:hover, #menu tw-link:hover, tw-dialog-links tw-link:hover {
+    color: var(--grey);
+    text-decoration: underline;
+}
+
+tw-passage tw-link::before, tw-dialog-links tw-link::before {
+    content: "☕ ";
+}
+tw-dialog-links tw-link {
+    border: unset;
+}
+/* 
+    This stylesheet doesn't differenciate betwee regular and cycling links, but if you want to, you can do so by targetting these elements: 
+	> tw-expression[name="cycling-link"] tw-link
+	> tw-expression[name="seq-link"] tw-link
+*/
+    /* Input, Textarea, Dropdown */
+tw-story input[type="text"], tw-story textarea, tw-story select {
+  background-color: var(--bg);
+  color: var(--text);
+  border: 1px dashed var(--text);
+
+}
+tw-story textarea {
+  resize: both;
+}
+tw-story select {
+  	padding: .34em .4em;
+}
+tw-story input:hover, tw-story input:focus, tw-story textarea:hover, tw-story textarea:focus, tw-story select:hover, tw-story select:focus {
+  background: var(--light) !important;
+  border: 1px solid var(--text) !important;
+}
+
+/***************************
+    TEXT STYLING
+***************************/
+    /* Headings */
+    /* Note: these are examples of what can be done, you don't have to keep them. */
+h1, h2, h3, h4, h5, h6 {font-family: 'Caveat', cursive;}
+h1 {
+    text-align: center;
+    font-size: 500%;
+    text-transform: uppercase;
+}
+h2 {
+    text-align: right;
+    font-size: 150%;
+}
+h3 {
+    font-size: 125%;
+    font-weight: normal;
+    text-decoration: underline overline dotted 1px;
+    margin-left: 3em;
+}
+h4 {
+    text-decoration: underline;
+    font-weight: normal;
+    margin-left: 2em;
+}
+h5 {
+    font-size: 90%;
+    text-transform: lowercase;
+    margin-left: 1em;
+}
+h6 {
+    text-transform: lowercase;
+    text-shadow: 0px 0px 1px var(--grey);
+}
+
+    /* Lists */
+tw-passage ul {
+    list-style: none;
+    text-align: left;
+}
+tw-passage ul li::before {
+    content: "∼ ";
+    font-weight: bold;
+}
+tw-passage ul li tw-link::before {
+    content: none;
+}
+
+    /* Other Stuff */
+.choice {
+    background-color: rgb(247, 240, 220);
+    border: 1px dotted rgba(13, 9, 31, 0.805);
+    width: fit-content;
+    padding: 1em;
+    text-align: center;
+}
+
+.enchantment-button tw-link {
+    cursor: not-allowed;
+}
+
+
+/***************************
+    SPECIAL PAGES
+***************************/
+    /* Title and End Pages Formatting */
+tw-story[tags="title"] {
+    height: fit-content;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+[tags="title"] tw-passage {
+    display: block;
+    text-align: center;
+    height: auto;
+    padding: 0;
+    margin: auto;
+    text-transform: uppercase;
+}
+[tags="title"] tw-footer {
+    display: none;
+}
+
+    /* Credits Page */
+[tags="credits"] tw-passage tw-link::after, [tags="credits"] tw-passage tw-link::before {
+    content: unset;
+}
+
+/***************************
+    MOBILE SIZING
+***************************/
+@media screen and (max-width: 770px) {
+    tw-story {
+        width: calc(100vw - 4em);
+        margin: 1em auto;
+        padding: 2em 1em;
+    }
+}
+
+@media screen and (max-width: 435px) {
+    tw-story {
+        padding-bottom: 0.5em;
+        max-height: calc(100vh - 5em);
+    }
+    tw-footer {
+        flex-direction: column;
+        align-items: center;
+        padding: 0.2em 0 0 0;
+    }
+}
